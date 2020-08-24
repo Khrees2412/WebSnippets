@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FANCY FORM</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Cambria, Cochin, Georgia, Times,
+                         'Times New Roman', serif;
+            font-size: 16px;
+            letter-spacing: 0.01rem;
+        }
+        form{
+            background-color: grey;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 600px;
+            margin: 100px auto;
+        }
+        .form-control{
+            padding: 5px;
+        }
+        .form-control input{
+            border: 2px solid pink;
+            border-radius: 3px;
+            outline: pink;
+            font-size: 20px;
+            width: 400px;
+            padding: 8px;
+            margin: 5px 10px;
+        }
+        .btn{
+            font-size: 18px;
+            font-weight: 500;
+            background: yellow;
+            border: 1px solid yellow;
+            border-radius: 3px;
+            padding: 5px;
+            margin: 5px 0;
+            outline: yellow;
+        }
+        .btn:hover{
+            opacity: 0.7;
+        }
+        
+    </style>
+    <form>
+        <span id="error"></span>
+        <div class="form-control">
+            <label for="name">Name</label>
+            <br>
+            <input type="text"
+                   id="name" 
+                   name="name" 
+                   placeholder="Enter your name">
+        </span>
+        <div class="form-control">
+            <label for="email">Email</label>
+            <br>
+            <input type="email"
+                   id="email" 
+                   name="email" 
+                   placeholder="Enter your email">
+        </div>
+        <div class="form-control">
+            <label for="password">Password</label>
+            <br>
+            <input type="password"
+                   id="password" 
+                   name="password" 
+                   placeholder="Choose a password">
+        </div>
+        <div class="form-control">
+            <label for="password">Confirm Password</label>
+            <br>
+            <input type="password"
+                   id="password2" 
+                   name="password" 
+                   placeholder="Confirm password">
+        </div>
+        <input class="btn" 
+                type="submit"
+                id="button">
+    </form>
+    <ul class="users" id="ul">
+
+    </ul>
+    
+    <!--Form Validation-->
+    <script>
+        const form = document.getElementsByTagName("form")
+        const name = document.getElementById("name")
+        const email = document.getElementById("email")
+        const password = document.getElementById("password")
+        const password2 = document.getElementById("password2")
+        const button = document.getElementById("button")
+        const errorMsg = document.getElementById("error");
+        const ul = document.getElementById("ul")
+
+        const validatePassword = (password,password2) => {
+            if(password === password2){
+                const addToList = () => {
+                    let inputName = name.value;
+                    let inputEmail = email.value;
+                    const li = document.createElement("li")
+                    const user = li.textContent = `${inputName } ${inputEmail}`
+                    ul.appendChild(`${user}`)
+                    resetFormContent()
+                }
+            }
+            else{
+                errorMsg.textContent = "Your passwords do not match"
+                setTimeout(()=>{
+                    errorMsg.remove()
+                }, 2000)
+                resetFormContent()
+            }
+            
+        }
+        const resetFormContent = () => {
+            name.value = ""
+            email.value = ""
+            password.value = ""
+            password2.value = ""
+        }
+
+        button.addEventListener("click", (e) => {
+            e.preventDefault()
+            validatePassword(password,password2)
+
+        })
+    </script>
+</body>
+</html>
