@@ -1,2 +1,2 @@
 # WebSnippets
-A collection of Frontend component using HTML, CSS and JavaScript
+A collection of Frontend components using HTML, CSS and JavaScript.

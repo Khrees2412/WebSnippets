@@ -113,6 +113,7 @@
                 const addToList = () => {
                     let inputName = name.value;
                     let inputEmail = email.value;
+                    console.log(name)
                     const li = document.createElement("li")
                     const user = li.textContent = `${inputName } ${inputEmail}`
                     ul.appendChild(`${user}`)
