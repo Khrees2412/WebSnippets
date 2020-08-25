@@ -34,11 +34,13 @@
         .form-control input{
             border: 2px solid pink;
             border-radius: 3px;
-            outline: pink;
             font-size: 20px;
             width: 400px;
             padding: 8px;
             margin: 5px 10px;
+        }
+        .form-control input:focus{
+            outline-color: blue;
         }
         .btn{
             font-size: 18px;
@@ -46,16 +48,17 @@
             background: yellow;
             border: 1px solid yellow;
             border-radius: 3px;
-            padding: 5px;
+            padding: 8px;
             margin: 5px 0;
             outline: yellow;
+            width: 400px;
         }
         .btn:hover{
-            opacity: 0.7;
+            opacity: 0.9;
         }
         
     </style>
-    <form>
+    <form >
         <span id="error"></span>
         <div class="form-control">
             <label for="name">Name</label>
@@ -89,9 +92,10 @@
                    name="password" 
                    placeholder="Confirm password">
         </div>
-        <input class="btn" 
+        <button class="btn" 
                 type="submit"
-                id="button">
+                id="button">Submit </button>
+                
     </form>
     <ul class="users" id="ul">
 
@@ -99,48 +103,95 @@
     
     <!--Form Validation-->
     <script>
-        const form = document.getElementsByTagName("form")
-        const name = document.getElementById("name")
-        const email = document.getElementById("email")
-        const password = document.getElementById("password")
-        const password2 = document.getElementById("password2")
-        const button = document.getElementById("button")
-        const errorMsg = document.getElementById("error");
-        const ul = document.getElementById("ul")
-
-        const validatePassword = (password,password2) => {
-            if(password === password2){
-                const addToList = () => {
-                    let inputName = name.value;
-                    let inputEmail = email.value;
-                    console.log(name)
-                    const li = document.createElement("li")
-                    const user = li.textContent = `${inputName } ${inputEmail}`
-                    ul.appendChild(`${user}`)
-                    resetFormContent()
+        const validateForm = () => {
+            const form = document.getElementsByTagName("form")
+            const name = document.getElementById("name").value
+            const email = document.getElementById("email").value
+            const password = document.getElementById("password").value
+            const password2 = document.getElementById("password2").value
+            const button = document.getElementById("button")
+            const errorMsg = document.getElementById("error");
+            const ul = document.getElementById("ul");
+            const resetFormContent = (n,e,p,p2) => {
+                name = ""
+                email = ""
+                password = ""
+                password2 = ""
+            }
+            const validateInputValues = (n,e) => {
+                if(n === "" || e === ""){
+                    errorMsg.textContent = "Fill Both Input Fields"
+                    setTimeout(() => {
+                        errorMsg.remove()
+                    }, 2000)
+                }
+                else{
+                    return;
                 }
             }
-            else{
-                errorMsg.textContent = "Your passwords do not match"
-                setTimeout(()=>{
-                    errorMsg.remove()
-                }, 2000)
-                resetFormContent()
+            validateInputValues(name,email)
+            const validatePassword = (p,p2) => {
+                if(p !== p2 ){
+                    errorMsg.textContent = "Your passwords do not match"
+                    setTimeout(() => {
+                        errorMsg.remove()
+                    }, 2000)
+                    if(p || p2 === "" ){
+                        errorMsg.textContent = "Fill the Password Fields";
+                        setTimeout(() => {
+                            errorMsg.remove()
+                        }, 2000)
+                    }
+                }
+                else{
+                    const li = document.createElement("li");
+                        li.textContent = `${name} ${email}`
+                        ul.appendChild(li)
+                        
+                    
+                }
+                
             }
-            
-        }
-        const resetFormContent = () => {
-            name.value = ""
-            email.value = ""
-            password.value = ""
-            password2.value = ""
-        }
+            validatePassword(password,password2);
+            resetFormContent(name,email,password,password2)
 
-        button.addEventListener("click", (e) => {
-            e.preventDefault()
-            validatePassword(password,password2)
+       
+        //name,email,password,password2
 
-        })
+        
+
+        
+    }
+    button.addEventListener("click", (e) => {
+        e.preventDefault()
+        validateForm();
+       
+    })
+    
+        /*
+         const validatePassword = (p,p2) => {
+            if(p === p2){
+                    const addToList = () => {
+                        let inputName = name.value;
+                        let inputEmail = email.value;
+                        console.log(inputName)
+                        const li = document.createElement("li");
+                        li.textContent = `${inputName } ${inputEmail}`
+                        ul.appendChild(li)
+                        resetFormContent()
+                    }
+                    addToList();
+                    return;
+                }
+                else{
+                    errorMsg.textContent = "Your passwords do not match"
+                    setTimeout(()=>{
+                        errorMsg.remove()
+                    }, 2000)
+                    resetFormContent()
+                }
+                
+        }*/
     </script>
 </body>
 </html>
