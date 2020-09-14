@@ -8,7 +8,7 @@
 <body>
     <style>
         *{
-            margin: 0;
+            margin: 0;  
             padding: 0;
             box-sizing: border-box;
         }
@@ -18,85 +18,94 @@
             font-size: 16px;
             letter-spacing: 0.01rem;
         }
-        form{
-            background-color: grey;
+        label{
+            display: inline-block;
+            margin: 10px;
+        }
+        .form{
+            background-color: whitesmoke;
             border-radius: 5px;
+            padding: 20px;
+            margin: 50px auto;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            width: 600px;
-            margin: 100px auto;
+            justify-content: center;
+            width: 95%;
+           
         }
         .form-control{
-            padding: 5px;
+            margin: 8px;
         }
         .form-control input{
-            border: 2px solid pink;
+            border: 1px solid pink;
             border-radius: 3px;
-            font-size: 20px;
-            width: 400px;
+            font-size: 18px;
+            width: 100%;
             padding: 8px;
-            margin: 5px 10px;
+            margin: 5px;
         }
         .form-control input:focus{
-            outline-color: blue;
+            outline-color: teal;
         }
         .btn{
             font-size: 18px;
             font-weight: 500;
-            background: yellow;
-            border: 1px solid yellow;
+            background: teal;
+            border: 1px solid teal;
             border-radius: 3px;
-            padding: 8px;
-            margin: 5px 0;
-            outline: yellow;
-            width: 400px;
+            padding: 12px;
+            margin: 10px;
+            outline: white;
+            width: 100%;
         }
         .btn:hover{
             opacity: 0.9;
         }
         
     </style>
+    <div class="form">
     <form >
         <span id="error"></span>
         <div class="form-control">
             <label for="name">Name</label>
-            <br>
             <input type="text"
                    id="name" 
                    name="name" 
-                   placeholder="Enter your name">
-        </span>
+                   placeholder="Enter your name"
+                   required>
+        </div>
         <div class="form-control">
             <label for="email">Email</label>
-            <br>
             <input type="email"
                    id="email" 
                    name="email" 
-                   placeholder="Enter your email">
+                   placeholder="Enter your email"
+                   required>
         </div>
         <div class="form-control">
             <label for="password">Password</label>
-            <br>
             <input type="password"
                    id="password" 
                    name="password" 
-                   placeholder="Choose a password">
+                   placeholder="Choose a password"
+                   required>
         </div>
         <div class="form-control">
             <label for="password">Confirm Password</label>
-            <br>
             <input type="password"
                    id="password2" 
                    name="password" 
-                   placeholder="Confirm password">
+                   placeholder="Confirm password"
+                   required>
         </div>
         <button class="btn" 
                 type="submit"
-                id="button">Submit </button>
+                id="button">
+                Submit 
+        </button>
                 
     </form>
+    </div>
     <ul class="users" id="ul">
 
     </ul>
@@ -105,66 +114,40 @@
     <script>
         const validateForm = () => {
             const form = document.getElementsByTagName("form")
-            const name = document.getElementById("name").value
-            const email = document.getElementById("email").value
-            const password = document.getElementById("password").value
-            const password2 = document.getElementById("password2").value
+            let name = document.getElementById("name").value
+            let email = document.getElementById("email").value
+            let password = document.getElementById("password").value
+            let password2 = document.getElementById("password2").value
             const button = document.getElementById("button")
             const errorMsg = document.getElementById("error");
             const ul = document.getElementById("ul");
-            const resetFormContent = (n,e,p,p2) => {
+            function resetFormContent(name,email,password,password2) {
                 name = ""
                 email = ""
                 password = ""
                 password2 = ""
             }
-            const validateInputValues = (n,e) => {
-                if(n === "" || e === ""){
-                    errorMsg.textContent = "Fill Both Input Fields"
-                    setTimeout(() => {
-                        errorMsg.remove()
-                    }, 2000)
-                }
-                else{
-                    return;
-                }
-            }
-            validateInputValues(name,email)
-            const validatePassword = (p,p2) => {
-                if(p !== p2 ){
-                    errorMsg.textContent = "Your passwords do not match"
-                    setTimeout(() => {
-                        errorMsg.remove()
-                    }, 2000)
-                    if(p || p2 === "" ){
-                        errorMsg.textContent = "Fill the Password Fields";
+            const validatePassword = () => {
+               if(p !== p2 ){
+                        errorMsg.textContent = "Your passwords do not match"
                         setTimeout(() => {
                             errorMsg.remove()
                         }, 2000)
                     }
-                }
-                else{
+                else {
                     const li = document.createElement("li");
                         li.textContent = `${name} ${email}`
-                        ul.appendChild(li)
-                        
-                    
+                        ul.appendChild(li)   
                 }
-                
             }
-            validatePassword(password,password2);
-            resetFormContent(name,email,password,password2)
-
-       
-        //name,email,password,password2
-
-        
-
-        
-    }
+            validatePassword();
+        }
+            
     button.addEventListener("click", (e) => {
         e.preventDefault()
         validateForm();
+        resetFormContent(name,email,password,password2)
+        
        
     })
     
@@ -192,6 +175,19 @@
                 }
                 
         }*/
+        /*
+         const validateInputValues = (n,e,p,p2) => {
+                if(n === "" || e === ""){
+                    errorMsg.textContent = "Fill Both Input Fields";
+                    setTimeout(() => {
+                        errorMsg.remove()
+                    }, 2000)
+                }
+                
+            }
+            validateInputValues(name,email,password,password2)        
+    }
+    */
     </script>
 </body>
 </html>
