@@ -1,193 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FANCY FORM</title>
-</head>
-<body>
-    <style>
-        *{
-            margin: 0;  
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family: Cambria, Cochin, Georgia, Times,
-                         'Times New Roman', serif;
-            font-size: 16px;
-            letter-spacing: 0.01rem;
-        }
-        label{
-            display: inline-block;
-            margin: 10px;
-        }
-        .form{
-            background-color: whitesmoke;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 50px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 95%;
-           
-        }
-        .form-control{
-            margin: 8px;
-        }
-        .form-control input{
-            border: 1px solid pink;
-            border-radius: 3px;
-            font-size: 18px;
-            width: 100%;
-            padding: 8px;
-            margin: 5px;
-        }
-        .form-control input:focus{
-            outline-color: teal;
-        }
-        .btn{
-            font-size: 18px;
-            font-weight: 500;
-            background: teal;
-            border: 1px solid teal;
-            border-radius: 3px;
-            padding: 12px;
-            margin: 10px;
-            outline: white;
-            width: 100%;
-        }
-        .btn:hover{
-            opacity: 0.9;
-        }
-        
-    </style>
-    <div class="form">
-    <form >
-        <span id="error"></span>
-        <div class="form-control">
-            <label for="name">Name</label>
-            <input type="text"
-                   id="name" 
-                   name="name" 
-                   placeholder="Enter your name"
-                   required>
-        </div>
-        <div class="form-control">
-            <label for="email">Email</label>
-            <input type="email"
-                   id="email" 
-                   name="email" 
-                   placeholder="Enter your email"
-                   required>
-        </div>
-        <div class="form-control">
-            <label for="password">Password</label>
-            <input type="password"
-                   id="password" 
-                   name="password" 
-                   placeholder="Choose a password"
-                   required>
-        </div>
-        <div class="form-control">
-            <label for="password">Confirm Password</label>
-            <input type="password"
-                   id="password2" 
-                   name="password" 
-                   placeholder="Confirm password"
-                   required>
-        </div>
-        <button class="btn" 
-                type="submit"
-                id="button">
-                Submit 
-        </button>
-                
-    </form>
-    </div>
-    <ul class="users" id="ul">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>FANCY FORM</title>
+	</head>
+	<body>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+				font-size: 16px;
+				letter-spacing: 0.01rem;
+			}
+			label {
+				display: inline-block;
+				margin: 8px 5px;
+				font-size: 1.5em;
+			}
+			.form {
+				background-color: ghostwhite;
+				border-radius: 5px;
+				padding: 50px;
+				margin: 50px auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 95vw;
+			}
+			.form-control {
+				margin: 5px;
+			}
+			.form-control input {
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				font-size: 18px;
+				width: 100%;
+				padding: 10px;
+				margin: 5px;
+			}
+			.form-control input:focus {
+				outline-color: teal;
+			}
+			.btn {
+				font-size: 18px;
+				font-weight: 500;
+				background-color: teal;
+				outline: none;
+				border: none;
+				border-radius: 3px;
+				width: 100%;
+				padding: 15px;
+				margin: 10px 4px;
+			}
+			.btn:hover {
+				opacity: 0.9;
+			}
+		</style>
+		<div class="form">
+			<form id="form">
+				<div id="error"></div>
+				<div class="form-control">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" placeholder="Enter your name" />
+				</div>
+				<div class="form-control">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" placeholder="Enter your email" required />
+				</div>
+				<div class="form-control">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" placeholder="Choose a password" required />
+				</div>
+				<div class="form-control">
+					<label for="password">Confirm Password</label>
+					<input type="password" id="password2" name="password" placeholder="Confirm password" required />
+				</div>
+				<button class="btn" type="submit" id="button">Submit</button>
+			</form>
+		</div>
+		<ul class="users" id="ul"></ul>
 
-    </ul>
-    
-    <!--Form Validation-->
-    <script>
-        const validateForm = () => {
-            const form = document.getElementsByTagName("form")
-            let name = document.getElementById("name").value
-            let email = document.getElementById("email").value
-            let password = document.getElementById("password").value
-            let password2 = document.getElementById("password2").value
-            const button = document.getElementById("button")
-            const errorMsg = document.getElementById("error");
-            const ul = document.getElementById("ul");
-            function resetFormContent(name,email,password,password2) {
-                name = ""
-                email = ""
-                password = ""
-                password2 = ""
-            }
-            const validatePassword = () => {
-               if(p !== p2 ){
-                        errorMsg.textContent = "Your passwords do not match"
-                        setTimeout(() => {
-                            errorMsg.remove()
-                        }, 2000)
-                    }
-                else {
-                    const li = document.createElement("li");
-                        li.textContent = `${name} ${email}`
-                        ul.appendChild(li)   
-                }
-            }
-            validatePassword();
-        }
-            
-    button.addEventListener("click", (e) => {
-        e.preventDefault()
-        validateForm();
-        resetFormContent(name,email,password,password2)
-        
-       
-    })
-    
-        /*
-         const validatePassword = (p,p2) => {
-            if(p === p2){
-                    const addToList = () => {
-                        let inputName = name.value;
-                        let inputEmail = email.value;
-                        console.log(inputName)
-                        const li = document.createElement("li");
-                        li.textContent = `${inputName } ${inputEmail}`
-                        ul.appendChild(li)
-                        resetFormContent()
-                    }
-                    addToList();
-                    return;
-                }
-                else{
-                    errorMsg.textContent = "Your passwords do not match"
-                    setTimeout(()=>{
-                        errorMsg.remove()
-                    }, 2000)
-                    resetFormContent()
-                }
-                
-        }*/
-        /*
-         const validateInputValues = (n,e,p,p2) => {
-                if(n === "" || e === ""){
-                    errorMsg.textContent = "Fill Both Input Fields";
-                    setTimeout(() => {
-                        errorMsg.remove()
-                    }, 2000)
-                }
-                
-            }
-            validateInputValues(name,email,password,password2)        
-    }
-    */
-    </script>
-</body>
+		<!--Form Validation-->
+		<script>
+			const form = document.getElementById("form");
+			const name = document.getElementById("name");
+			const email = document.getElementById("email");
+			const password = document.getElementById("password");
+			const password2 = document.getElementById("password2");
+			const errorMsg = document.getElementById("error");
+			const ul = document.getElementById("ul");
+
+			form.addEventListener("submit", e => {
+				let message = [];
+
+				if (password.value !== password2.value) {
+					message.push("Passwords do not match");
+				}
+
+				if (message.length > 0) {
+					e.preventDefault();
+					errorMsg.textContent = message.join(", ");
+					console.log(errorMsg);
+					console.log(message);
+					setTimeout(() => {
+						(errorMsg.innerText = ""), 7000;
+					});
+				}
+			});
+		</script>
+	</body>
 </html>
