@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Image Slider Gallery</title>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.container {
+			display: flex;
+			width: 50%;
+			padding: 50px;
+			margin: 50px auto;
+		}
+		img {
+			margin: 100px auto;
+		}
+		button {
+			padding: 10px;
+			font-size: 20px;
+			font-weight: 800;
+			background-color: navy;
+			color: white;
+			outline: none;
+			border: none;
+			width: fit-content;
+			height: fit-content;
+			margin: 10px;
+		}
+		button:hover {
+			opacity: 0.7;
+		}
+		h2 {
+			text-align: center;
+			margin-top: 50px;
+		}
+	</style>
+	<body>
+		<h2>Image Slider</h2>
+		<div class="container">
+			<button id="prev" onclick="prev()"><</button>
+			<img src="./images/photosnap.png" alt="Image of stuff" />
+			<button id="next" onclick="next()">></button>
+		</div>
+	</body>
+	<script>
+		const img = document.querySelector("img");
+
+		const imgArr = [
+			"./images/photosnap.png",
+			"./images/account.png",
+			"./images/eyecam-co.png",
+			"./images/faceit.png",
+			"./images/insure.png",
+			"./images/loop-studios.png",
+			"./images/manage.png"
+		];
+
+		let counter = 0;
+
+		function prev() {
+			counter--;
+			for (i = 0; i < imgArr.length; i++) {
+				if (counter <= 0) {
+					counter = imgArr.length - 1;
+				}
+				img.src = imgArr[counter];
+			}
+		}
+		function next() {
+			counter++;
+			for (i = 0; i < imgArr.length; i++) {
+				if (counter >= imgArr.length) {
+					counter = 0;
+				}
+				img.src = imgArr[counter];
+			}
+		}
+	</script>
+</html>

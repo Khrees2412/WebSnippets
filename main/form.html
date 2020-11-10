@@ -16,6 +16,11 @@
 				font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 				font-size: 16px;
 				letter-spacing: 0.01rem;
+				background-color: ghostwhite;
+			}
+			#error {
+				color: red;
+				text-align: center;
 			}
 			label {
 				display: inline-block;
@@ -23,14 +28,12 @@
 				font-size: 1.5em;
 			}
 			.form {
-				background-color: ghostwhite;
 				border-radius: 5px;
 				padding: 50px;
-				margin: 50px auto;
+				margin: auto;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				width: 95vw;
 			}
 			.form-control {
 				margin: 5px;
@@ -55,15 +58,30 @@
 				border-radius: 3px;
 				width: 100%;
 				padding: 15px;
-				margin: 10px 4px;
+				margin: 10px 8px;
 			}
 			.btn:hover {
 				opacity: 0.9;
 			}
+			.list-box {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: fit-content;
+				margin: 10px auto;
+			}
+			li {
+				border: 1px solid #ccc;
+				margin-top: 5px;
+				padding: 10px;
+				font-size: 18px;
+				font-weight: 700;
+			}
 		</style>
 		<div class="form">
 			<form id="form">
-				<div id="error"></div>
+				<h1 id="error"></h1>
 				<div class="form-control">
 					<label for="name">Name</label>
 					<input type="text" id="name" name="name" placeholder="Enter your name" />
@@ -80,10 +98,13 @@
 					<label for="password">Confirm Password</label>
 					<input type="password" id="password2" name="password" placeholder="Confirm password" required />
 				</div>
+				<!-- <input type="submit" class="btn" value="Submit" /> -->
 				<button class="btn" type="submit" id="button">Submit</button>
 			</form>
 		</div>
-		<ul class="users" id="ul"></ul>
+		<div class="list-box">
+			<ol class="users" id="ol"></ol>
+		</div>
 
 		<!--Form Validation-->
 		<script>
@@ -93,23 +114,26 @@
 			const password = document.getElementById("password");
 			const password2 = document.getElementById("password2");
 			const errorMsg = document.getElementById("error");
-			const ul = document.getElementById("ul");
+			const ol = document.getElementById("ol");
 
-			form.addEventListener("submit", e => {
-				let message = [];
+			form.addEventListener("submit", event => {
+				event.preventDefault();
 
 				if (password.value !== password2.value) {
-					message.push("Passwords do not match");
-				}
-
-				if (message.length > 0) {
-					e.preventDefault();
-					errorMsg.textContent = message.join(", ");
-					console.log(errorMsg);
-					console.log(message);
+					errorMsg.textContent = "Passwords do not match!";
 					setTimeout(() => {
-						(errorMsg.innerText = ""), 7000;
-					});
+						errorMsg.innerText = "";
+					}, 2500);
+					password.value = "";
+					password2.value = "";
+				} else {
+					const li = document.createElement("li");
+					li.textContent = `${name.value} -  ${email.value}`;
+					ol.appendChild(li);
+					name.value = "";
+					email.value = "";
+					password.value = "";
+					password2.value = "";
 				}
 			});
 		</script>
